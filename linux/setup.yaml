@@ -1,0 +1,24 @@
+---
+- hosts: linux_all
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: create user
+      ansible.builtin.user:
+        name: tmoka
+        password: "{{ 'tmoka_password' | ansible.builtin.password_hash('sha512') }}"
+        uid: 1050
+        shell: /usr/bin/bash
+    
+    - name: install httpd
+      ansible.builtin.dnf:
+        name:
+          - httpd
+        state: present
+    
+    - name: update all packages
+      ansible.builtin.dnf:
+        name:
+          - '*'
+        state: latest
