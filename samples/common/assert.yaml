@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+    location: Tokyo
+    year: 2020
+    state: present
+
+  tasks:
+    - name: assert variable definition
+      ansible.builtin.assert:
+        that:
+          - location is defined
+          - year is defined
+          - state is defined
+        success_msg: "テスト成功"
+        fail_msg: "テスト失敗"
+
+    - name: assert value
+      ansible.builtin.assert:
+        that:
+          - location == 'Tokyo'
+          - year >= 2020
+          - state in expected_states
+      vars:
+        expected_states:
+          - present
+          - absent
