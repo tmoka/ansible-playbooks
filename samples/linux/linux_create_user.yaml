@@ -1,0 +1,24 @@
+---
+- hosts: linux_all
+  become: true
+
+  tasks:
+    - name: create user
+      ansible.builtin.user:
+        name: sample-user
+        password: "{{ 'sample_password' | ansible.builtin.password_hash('sha512') }}"
+        uid: 1050
+        shell: /usr/bin/bash
+
+    - name: create group
+      ansible.builtin.group:
+        name: app-group
+        gid: 2200
+
+    - name: create user with group
+      ansible.builtin.user:
+        name: app-user
+        uid: 1056
+        group: app-group
+        shell: /sbin/nologin
+        home: /opt/app
