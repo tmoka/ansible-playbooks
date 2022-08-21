@@ -1,0 +1,6 @@
+---
+all:
+  hosts:
+    sakura-vps:
+      ansible_host: 133.167.87.8
+      ansible_user: ubuntu

@@ -1,1 +1,2 @@
-# ansible_playbooks
+# ansible-playbooks
+Ansibleのplaybookを置いておくリポジトリ
